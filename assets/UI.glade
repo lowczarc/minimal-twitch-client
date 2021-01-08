@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <requires lib="webkit2gtk" version="2.28"/>
+  <object class="GtkWindow" id="window1">
+    <property name="can-focus">False</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
+    <signal name="check-resize" handler="on_resize" swapped="no"/>
+    <signal name="destroy" handler="on_window1_destroy" swapped="no"/>
+    <signal name="key-press-event" handler="on_key_press" swapped="no"/>
+    <child>
+      <object class="GtkStack" id="mainStack1">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <child>
+          <object class="GtkViewport" id="loadingScreen1">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="pixbuf">imgs/twitch.png</property>
+                    <style>
+                      <class name="twitch"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinner">
+                    <property name="height-request">37</property>
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="margin-top">40</property>
+                    <property name="active">True</property>
+                    <style>
+                      <class name="spinner"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <style>
+              <class name="loading_screen"/>
+            </style>
+          </object>
+          <packing>
+            <property name="name">loadingScreen</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkPaned" id="panel1">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="position">200</property>
+            <property name="position-set">True</property>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow1">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="hscrollbar-policy">external</property>
+                <property name="vscrollbar-policy">external</property>
+                <property name="kinetic-scrolling">False</property>
+                <property name="overlay-scrolling">False</property>
+                <property name="propagate-natural-width">True</property>
+                <property name="propagate-natural-height">True</property>
+                <child>
+                  <object class="GtkViewport" id="videoContainer1">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="shadow-type">none</property>
+                    <child>
+                      <object class="GtkDrawingArea" id="drawingArea1">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="valign">center</property>
+                        <property name="vexpand">True</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="black"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="resize">True</property>
+                <property name="shrink">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="WebKitWebView" type-func="webkit_web_view_get_type" id="webview1">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="zoom-level">1.0000000002235174</property>
+                <property name="is-muted">True</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="resize">False</property>
+                <property name="shrink">False</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="name">streamVideo</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
