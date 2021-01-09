@@ -9,7 +9,7 @@ _GLADE_FILE = "assets/UI.glade"
 _STYLE_FILE = "assets/UI.css"
 
 class App:
-    def __init__(self, channel, quality='best', cookie_storage=None):
+    def __init__(self, stream, quality='best', cookie_storage=None, platform='twitch'):
         # Load Glade Structure
         WebKit.WebView()
 
@@ -29,8 +29,9 @@ class App:
           provider,
           Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-        self.channel = channel
+        self.stream = stream
         self.quality = quality
+        self.platform = platform
 
         # Start Vlc Instance
         self.vlc_instance = Instance("--no-xlib")
@@ -54,6 +55,7 @@ class App:
         self.window.connect("check-resize", self.__on_window1_check_resize)
         self.video_container.connect("check-resize", self.__on_window1_check_resize)
         self.panel.connect("draw", self.__on_window1_check_resize)
+        self.webview.connect("load-changed", self.__on_page_change)
 
         # TODO: Add a the loading screen while staying thread safe
         # self.vlc_player.event_attach('media_length_change', self.__on_media_length_changed)
@@ -65,9 +67,21 @@ class App:
         self.chat_size = 400
 
         # Show the window
-        self.window.show_all()
-        self.webview.load_uri('https://www.twitch.tv/embed/{}/chat?darkpopout&parent=stream_client'.format(channel))
-        self.main_stack.set_visible_child(self.main_stack.get_child_by_name('streamVideo'))
+        self.window.show()
+
+        if self.platform == 'youtube':
+          self.webview.load_uri('https://www.youtube.com/live_chat?v={}&dark_theme=1'.format(stream))
+        elif self.platform == 'twitch':
+          self.webview.load_uri('https://www.twitch.tv/embed/{}/chat?darkpopout&parent=stream_client'.format(stream))
+        else:
+          raise Exception('Unrecognized Platform')
+
+    def __on_page_change(self, widget, event):
+        if event == WebKit.LoadEvent.FINISHED:
+          print(widget.get_uri())
+          self.show_chat = True
+          self.__update_chat()
+          self.main_stack.set_visible_child(self.main_stack.get_child_by_name('streamVideo'))
 
     def __on_panel_key_press(self, widget, event):
         # Toggle Chat on Star Key press
@@ -109,14 +123,18 @@ class App:
     def __on_window1_realize(self, widget):
         self.window.fullscreen()
 
-        available_streams = streamlink.streams("https://twitch.tv/{}".format(self.channel))
+        if self.platform == 'youtube':
+          available_streams = streamlink.streams("https://www.youtube.com/watch?v={}".format(self.stream))
+        elif self.platform == 'twitch':
+          available_streams = streamlink.streams("https://twitch.tv/{}".format(self.stream))
 
         if available_streams.get(self.quality) is None:
-            print('No stream available for the channel "{}" at the quality "{}"'.format(self.channel, self.quality))
-            Gtk.main_quit()
-
-        self.vlc_player.load_media(available_streams[self.quality].url)
-        self.vlc_player.play()
+            print('No stream available for the stream "{}" at the quality "{}" on "{}"'.format(self.stream, self.quality, self.platform))
+            self.window.close()
+            return
+        else:
+          self.vlc_player.load_media(available_streams[self.quality].url)
+          self.vlc_player.play()
 
         self.__update_chat()
 

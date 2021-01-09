@@ -10,9 +10,10 @@ from gi.repository import Gtk
 
 from lib import App
 
+platform = 'youtube' if len(sys.argv) > 2 and sys.argv[2] == 'yt' else 'twitch'
 if __name__ == "__main__":
   try:
-    main = App(sys.argv[1], cookie_storage='{}/.config/stream_client'.format(os.environ['HOME']))
+    main = App(sys.argv[1], cookie_storage='{}/.config/stream_client'.format(os.environ['HOME']), quality="best", platform=platform)
     Gtk.main()
   except KeyboardInterrupt:
         print('Interrupted', file=sys.stderr)

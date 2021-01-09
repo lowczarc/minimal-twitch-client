@@ -16,6 +16,8 @@
         <property name="can-focus">False</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
+        <property name="transition-duration">500</property>
+        <property name="transition-type">crossfade</property>
         <child>
           <object class="GtkViewport" id="loadingScreen1">
             <property name="visible">True</property>
@@ -33,7 +35,7 @@
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="pixbuf">imgs/twitch.png</property>
+                    <property name="pixbuf">imgs/logo.png</property>
                     <style>
                       <class name="twitch"/>
                     </style>

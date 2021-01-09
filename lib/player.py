@@ -12,7 +12,7 @@ class VlcPlayer:
         # Connect signals
         self.gtk_drawing_area.connect("realize", self.__on_realize)
 
-    def __on_realize(self, data):
+    def __on_realize(self, data=None):
         # Create the media_player
         self.media_player = self.vlc_instance.media_player_new()
 
@@ -35,6 +35,9 @@ class VlcPlayer:
         event_manager.event_attach(vlc.EventType.MediaPlayerLengthChanged, self.__on_length_changed)
 
     def __on_length_changed(self, event):
+        # WARNING: Because self.gtk_drawing_area is used in check_size_change,
+        #          this call might not be thread safe and might cause problems
+        #          in the future
         self.check_size_change()
 
     def check_size_change(self):
