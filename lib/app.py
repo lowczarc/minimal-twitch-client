@@ -25,9 +25,9 @@ class App:
         provider = Gtk.CssProvider()
         provider.load_from_path(_STYLE_FILE)
         Gtk.StyleContext.add_provider_for_screen(
-          Gdk.Screen.get_default(),
-          provider,
-          Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+            Gdk.Screen.get_default(),
+            provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
         self.stream = stream
         self.quality = quality
@@ -57,7 +57,7 @@ class App:
         self.panel.connect("draw", self.__on_window1_check_resize)
         self.webview.connect("load-changed", self.__on_page_change)
 
-        # TODO: Add a the loading screen while staying thread safe
+        # TODO: Add a the loading screen at the end of the loading of the video while staying thread safe
         # self.vlc_player.event_attach('media_length_change', self.__on_media_length_changed)
 
         self.window.connect("key-press-event", self.__on_panel_key_press)
@@ -70,18 +70,20 @@ class App:
         self.window.show()
 
         if self.platform == 'youtube':
-          self.webview.load_uri('https://www.youtube.com/live_chat?v={}&dark_theme=1'.format(stream))
+            self.webview.load_uri('https://www.youtube.com/live_chat?v={}&dark_theme=1'.format(stream))
         elif self.platform == 'twitch':
-          self.webview.load_uri('https://www.twitch.tv/embed/{}/chat?darkpopout&parent=stream_client'.format(stream))
+            self.webview.load_uri('https://www.twitch.tv/embed/{}/chat?darkpopout&parent=stream_client'.format(stream))
         else:
-          raise Exception('Unrecognized Platform')
+            raise Exception('Unrecognized Platform')
 
     def __on_page_change(self, widget, event):
         if event == WebKit.LoadEvent.FINISHED:
-          print(widget.get_uri())
-          self.show_chat = True
-          self.__update_chat()
-          self.main_stack.set_visible_child(self.main_stack.get_child_by_name('streamVideo'))
+            # TODO: Change the video according to the change in url of the chat to support raids
+            print(widget.get_uri())
+
+            self.show_chat = True
+            self.__update_chat()
+            self.main_stack.set_visible_child(self.main_stack.get_child_by_name('streamVideo'))
 
     def __on_panel_key_press(self, widget, event):
         # Toggle Chat on Star Key press
@@ -124,17 +126,17 @@ class App:
         self.window.fullscreen()
 
         if self.platform == 'youtube':
-          available_streams = streamlink.streams("https://www.youtube.com/watch?v={}".format(self.stream))
+            available_streams = streamlink.streams("https://www.youtube.com/watch?v={}".format(self.stream))
         elif self.platform == 'twitch':
-          available_streams = streamlink.streams("https://twitch.tv/{}".format(self.stream))
+            available_streams = streamlink.streams("https://twitch.tv/{}".format(self.stream))
 
         if available_streams.get(self.quality) is None:
             print('No stream available for the stream "{}" at the quality "{}" on "{}"'.format(self.stream, self.quality, self.platform))
             self.window.close()
             return
         else:
-          self.vlc_player.load_media(available_streams[self.quality].url)
-          self.vlc_player.play()
+            self.vlc_player.load_media(available_streams[self.quality].url)
+            self.vlc_player.play()
 
         self.__update_chat()
 

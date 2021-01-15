@@ -42,15 +42,14 @@ class VlcPlayer:
 
     def check_size_change(self):
         if not self.media_player:
-          return
-
-        video_size = self.media_player.video_get_size()
-        if video_size[0] == 0:
             return
 
-        # Change the height of the drawing area to match the width of the window
-        area_width = self.gtk_drawing_area.get_parent().get_allocation().width
-        self.gtk_drawing_area.set_size_request(area_width, area_width * video_size[1] / video_size[0])
+        video_size = self.media_player.video_get_size()
+
+        if video_size[0] != 0:
+            # Change the height of the drawing area to match the width of the window
+            area_width = self.gtk_drawing_area.get_parent().get_allocation().width
+            self.gtk_drawing_area.set_size_request(area_width, area_width * video_size[1] / video_size[0])
 
     def load_media(self, uri):
         if self.media:
