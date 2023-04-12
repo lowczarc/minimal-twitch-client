@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 import os
 import sys
+import argparse
+
+# Force the use of the x11 GDK to allow the use of get_xid
+os.environ['GDK_BACKEND'] = 'x11'
 
 import gi
 gi.require_version('Gtk', '3.0')
@@ -10,11 +14,23 @@ from gi.repository import Gtk
 
 from lib import App
 
-platform = 'youtube' if len(sys.argv) > 2 and sys.argv[2] == 'yt' else 'twitch'
+parser = argparse.ArgumentParser()
+parser.add_argument('stream_id', help='A stream ID, for exemple https://twitch.tv/abcdef or https://www.youtube.com/watch?v=abcdef would both be abcdef')
+parser.add_argument('--youtube', '-yt', action='store_true', help='Use the YouTube API instead of the Twitch API')
+parser.add_argument('--quality', '-q', default='best', help='The quality of the stream to play')
+args = parser.parse_args()
+
+platform = 'twitch' if not args.youtube else 'youtube'
+stream_id = args.stream_id
+quality = args.quality
+
+print("Starting stream client for %s" % platform)
+print("Quality: %s" % quality)
+print("Stream: %s" % stream_id)
 
 if __name__ == "__main__":
     try:
-        main = App(sys.argv[1], cookie_storage='{}/.config/stream_client'.format(os.environ['HOME']), quality="best", platform=platform)
+        main = App(stream_id, cookie_storage='{}/.config/stream_client'.format(os.environ['HOME']), quality=quality, platform=platform)
         Gtk.main()
     except KeyboardInterrupt:
         print('Interrupted', file=sys.stderr)

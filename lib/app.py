@@ -79,7 +79,6 @@ class App:
     def __on_page_change(self, widget, event):
         if event == WebKit.LoadEvent.FINISHED:
             # TODO: Change the video according to the change in url of the chat to support raids
-            print(widget.get_uri())
 
             self.show_chat = True
             self.__update_chat()
@@ -132,6 +131,10 @@ class App:
 
         if available_streams.get(self.quality) is None:
             print('No stream available for the stream "{}" at the quality "{}" on "{}"'.format(self.stream, self.quality, self.platform))
+            print('Available Streams:')
+            for stream in available_streams:
+                print('\t{}'.format(stream))
+
             self.window.close()
             return
         else:

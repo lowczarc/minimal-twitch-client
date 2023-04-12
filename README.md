@@ -6,7 +6,7 @@ A minimal GTK stream viewer for youtube and twitch based of streamlink
 
 ### Warning
 
-This project has been made for my personnal use and therefore has not been tested in any other environment (Arch Linux with X as display server and i3 as wm).
+This project has been made for my personnal use and therefore has not been tested in any other environment (Arch Linux with Wayland as display server and i3 as wm).
 
 The key to open the chat (keyval 269025072) is the star key of the EU keyboard of my Thinkpad T495. I think this key isn't present on most keyboard so you might want to change it.
 
@@ -24,7 +24,7 @@ with `TWITCH_CHANNEL_NAME` replaced by the name of the twitch channel you want t
 
 To use it for a youtube live stream, launch:
 ```
-./stream_client YOUTUBE_STREAM_ID yt
+./stream_client YOUTUBE_STREAM_ID -yt
 ```
 with `YOUTUBE_STREAM_ID` replaced by the id of the stream (for example for https://www.youtube.com/watch?v=dQw4w9WgXcQ it would be `dQw4w9WgXcQ`)
 
