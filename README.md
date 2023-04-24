@@ -1,38 +1,42 @@
-# Stream Client
+# 📺 Stream Client
 
-A minimal GTK stream viewer for youtube and twitch based of streamlink
+A minimal GTK stream viewer for YouTube and Twitch based on streamlink.
 
-## Running the app
+## 🚀 Running the app
 
-### Warning
+### ⚠️ Warning
 
-This project has been made for my personnal use and therefore has not been tested in any other environment (Arch Linux with Wayland as display server and i3 as wm).
+This project has been made for my personal use and therefore has not been tested in any other environment (Arch Linux with Wayland as display server and i3 as wm).
 
-The key to open the chat (keyval 269025072) is the star key of the EU keyboard of my Thinkpad T495. I think this key isn't present on most keyboard so you might want to change it.
+The key to open the chat (keyval 269025072) is the star key of the EU keyboard of my Thinkpad T495. I think this key isn't present on most keyboards, so you might want to change it.
 
-### Dependencies
+### 📦 Dependencies
 
-You need Gtk3.0, streamlink and the python-vlc bindings installed.
+You need `Gtk3.0`, `streamlink`, and the `python-vlc` bindings installed.
 
-### Run
+### ▶️ Run
 
-To use it for a twitch stream, launch:
-```
+To use it for a Twitch stream, launch:
+
+```sh
 ./stream_client TWITCH_CHANNEL_NAME
 ```
-with `TWITCH_CHANNEL_NAME` replaced by the name of the twitch channel you want to watch
 
-To use it for a youtube live stream, launch:
-```
+Replace `TWITCH_CHANNEL_NAME` with the name of the Twitch channel you want to watch.
+
+To use it for a YouTube live stream, launch:
+
+```sh
 ./stream_client YOUTUBE_STREAM_ID -yt
 ```
-with `YOUTUBE_STREAM_ID` replaced by the id of the stream (for example for https://www.youtube.com/watch?v=dQw4w9WgXcQ it would be `dQw4w9WgXcQ`)
 
-## License
+Replace `YOUTUBE_STREAM_ID` with the ID of the stream (for example, for `https://www.youtube.com/watch?v=dQw4w9WgXcQ`, it would be `dQw4w9WgXcQ`).
 
-This project is licensed under the `Do whatever you want to do with it, you can reproduce it in less than an hour even without knowing python GTK and libvlc anyway` license
+## 📝 License
 
-## Credits
+This project is licensed under the `Do whatever you want to do with it, you can reproduce it in less than an hour even without knowing python GTK and libvlc anyway` license.
+
+## 🙏 Credits
 
 * Code by Lancelot Owczarczak
 * Logo play by Alex Muravev from the Noun Project
