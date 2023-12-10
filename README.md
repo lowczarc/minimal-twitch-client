@@ -6,7 +6,7 @@ A minimal GTK stream viewer for YouTube and Twitch based on streamlink.
 
 ### ⚠️ Warning
 
-This project has been made for my personal use and therefore has not been tested in any other environment (Arch Linux with Wayland as display server and i3 as wm).
+This project has been made for my personal use and therefore has not been tested in any other environment (Arch Linux with Wayland as display server and sway as wm).
 
 The key to open the chat (keyval 269025072) is the star key of the EU keyboard of my Thinkpad T495. I think this key isn't present on most keyboards, so you might want to change it.
 
